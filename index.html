@@ -1,128 +1,222 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>회사 소개</title>
   <style>
-    /* 기본 스타일 */
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      line-height: 1.6;
-    }
+    /* -------------------- 기본 설정 -------------------- */
+    * {margin:0; padding:0; box-sizing:border-box;}
+    body {font-family: 'Noto Sans KR', sans-serif; color:#333; line-height:1.6;}
+
+    a {text-decoration:none; color:inherit;}
+    ul {list-style:none;}
+
+    /* -------------------- 헤더 -------------------- */
     header {
-      background: #004080;
-      color: white;
-      padding: 1rem;
-      text-align: center;
+      background:#004080;
+      color:#fff;
+      padding:0.5rem 2rem;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      position:sticky;
+      top:0;
+      z-index:1000;
     }
-    nav {
-      background: #003366;
-      padding: 0.5rem;
-      text-align: center;
+    header h1 {font-size:1.5rem;}
+    nav ul {display:flex; gap:2rem;}
+    nav a {color:#fff; font-weight:bold;}
+
+    /* -------------------- 슬라이드 배너 -------------------- */
+    .slider {
+      position:relative;
+      width:100%;
+      height:70vh;
+      overflow:hidden;
     }
-    nav a {
-      color: white;
-      margin: 0 15px;
-      text-decoration: none;
-      font-weight: bold;
+    .slides {
+      display:flex;
+      width:300%;
+      transition:transform 1s ease;
     }
+    .slide {
+      width:100%;
+      flex-shrink:0;
+      background-size:cover;
+      background-position:center;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      color:#fff;
+      font-size:2rem;
+      font-weight:bold;
+      text-shadow:0 0 10px rgba(0,0,0,0.5);
+    }
+    .slide1 {background-image:url('https://source.unsplash.com/1600x900/?technology');}
+    .slide2 {background-image:url('https://source.unsplash.com/1600x900/?industry');}
+    .slide3 {background-image:url('https://source.unsplash.com/1600x900/?office');}
+
+    /* -------------------- 콘텐츠 공통 -------------------- */
     .container {
-      padding: 2rem;
-      max-width: 1200px;
-      margin: auto;
+      max-width:1200px;
+      margin:auto;
+      padding:4rem 2rem;
     }
-    section {
-      margin-bottom: 3rem;
+    section h2 {
+      font-size:2rem;
+      margin-bottom:1rem;
+      color:#004080;
+      text-align:center;
     }
-    .hero {
-      text-align: center;
-      padding: 3rem 1rem;
-      background: url("https://source.unsplash.com/1600x600/?technology,office") no-repeat center/cover;
-      color: white;
-    }
-    .hero h1 {
-      font-size: 2.5rem;
-    }
-    form {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-      max-width: 600px;
-      margin: auto;
-    }
-    input, textarea, button {
-      padding: 0.8rem;
-      font-size: 1rem;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-    }
-    button {
-      background: #004080;
-      color: white;
-      border: none;
-      cursor: pointer;
-    }
-    button:hover {
-      background: #0066cc;
+    section p {
+      text-align:center;
+      margin-bottom:2rem;
+      font-size:1.1rem;
     }
 
-    /* 반응형 */
-    @media (max-width: 768px) {
-      .hero h1 {
-        font-size: 2rem;
-      }
-      nav a {
-        display: block;
-        margin: 10px 0;
-      }
+    /* -------------------- 서비스 카드 -------------------- */
+    .services {
+      display:grid;
+      grid-template-columns:repeat(auto-fit, minmax(250px,1fr));
+      gap:2rem;
+      margin-top:2rem;
+    }
+    .card {
+      background:#f5f5f5;
+      padding:2rem;
+      border-radius:8px;
+      text-align:center;
+      box-shadow:0 2px 6px rgba(0,0,0,0.1);
+    }
+    .card img {
+      max-width:100%;
+      height:150px;
+      object-fit:cover;
+      margin-bottom:1rem;
+      border-radius:4px;
+    }
+    .card h3 {color:#004080; margin-bottom:0.5rem;}
+
+    /* -------------------- 문의 폼 -------------------- */
+    form {
+      max-width:600px;
+      margin:auto;
+      display:flex;
+      flex-direction:column;
+      gap:1rem;
+    }
+    input, textarea, button {
+      padding:0.8rem;
+      font-size:1rem;
+      border:1px solid #ccc;
+      border-radius:5px;
+    }
+    button {
+      background:#004080;
+      color:#fff;
+      font-size:1.1rem;
+      border:none;
+      cursor:pointer;
+      transition:background 0.3s;
+    }
+    button:hover {background:#0066cc;}
+
+    /* -------------------- 푸터 -------------------- */
+    footer {
+      background:#003366;
+      color:#fff;
+      text-align:center;
+      padding:1rem;
+      font-size:0.9rem;
+      margin-top:3rem;
+    }
+
+    /* -------------------- 반응형 -------------------- */
+    @media(max-width:768px){
+      header {flex-direction:column; align-items:flex-start;}
+      nav ul {flex-direction:column; gap:1rem; margin-top:0.5rem;}
+      .slider {height:50vh;}
     }
   </style>
 </head>
 <body>
+
+  <!-- 헤더 -->
   <header>
-    <h1>우리 회사</h1>
-    <p>고객과 함께하는 미래</p>
+    <h1>우리회사</h1>
+    <nav>
+      <ul>
+        <li><a href="#about">회사소개</a></li>
+        <li><a href="#services">제품소개</a></li>
+        <li><a href="#contact">문의하기</a></li>
+      </ul>
+    </nav>
   </header>
 
-  <nav>
-    <a href="#about">회사 소개</a>
-    <a href="#services">서비스</a>
-    <a href="#contact">문의하기</a>
-  </nav>
+  <!-- 슬라이드 배너 -->
+  <div class="slider">
+    <div class="slides" id="slides">
+      <div class="slide slide1">혁신적인 기술</div>
+      <div class="slide slide2">고객과 함께 성장</div>
+      <div class="slide slide3">신뢰할 수 있는 파트너</div>
+    </div>
+  </div>
 
-  <section class="hero">
-    <h1>당신의 비즈니스 파트너</h1>
-    <p>신뢰와 혁신으로 성장합니다.</p>
+  <!-- 회사 소개 -->
+  <section id="about" class="container">
+    <h2>회사 소개</h2>
+    <p>우리 회사는 첨단 디스플레이 기술과 고객 중심 서비스를 통해 최고의 솔루션을 제공합니다.</p>
   </section>
 
-  <div class="container">
-    <section id="about">
-      <h2>회사 소개</h2>
-      <p>
-        우리 회사는 최고의 기술력과 신뢰를 바탕으로 다양한 솔루션을 제공합니다.
-        고객의 성공을 위해 최선을 다하고 있습니다.
-      </p>
-    </section>
+  <!-- 서비스 / 제품 소개 -->
+  <section id="services" class="container">
+    <h2>제품 소개</h2>
+    <p>우수한 품질과 혁신적인 기술로 다양한 분야의 고객에게 솔루션을 제공합니다.</p>
+    <div class="services">
+      <div class="card">
+        <img src="https://source.unsplash.com/400x300/?display" alt="제품1">
+        <h3>제품 1</h3>
+        <p>고품질 디스플레이 솔루션</p>
+      </div>
+      <div class="card">
+        <img src="https://source.unsplash.com/400x300/?monitor" alt="제품2">
+        <h3>제품 2</h3>
+        <p>산업용 맞춤형 패널</p>
+      </div>
+      <div class="card">
+        <img src="https://source.unsplash.com/400x300/?led" alt="제품3">
+        <h3>제품 3</h3>
+        <p>고성능 LED 솔루션</p>
+      </div>
+    </div>
+  </section>
 
-    <section id="services">
-      <h2>서비스</h2>
-      <p>✔ 맞춤형 솔루션 제공<br>
-         ✔ 고객 지원 및 컨설팅<br>
-         ✔ 혁신적인 기술 개발
-      </p>
-    </section>
+  <!-- 문의하기 -->
+  <section id="contact" class="container">
+    <h2>문의하기</h2>
+    <p>제품 및 서비스에 관한 문의는 아래 양식을 통해 보내주세요.</p>
+    <form action="https://formspree.io/f/myznjoeb" method="POST">
+      <input type="text" name="name" placeholder="이름" required>
+      <input type="email" name="_replyto" placeholder="이메일" required>
+      <textarea name="message" rows="5" placeholder="문의 내용을 입력하세요" required></textarea>
+      <button type="submit">문의 보내기</button>
+    </form>
+  </section>
 
-    <section id="contact">
-      <h2>문의하기</h2>
-      <form action="https://formspree.io/f/여기에_ID" method="POST">
-        <input type="text" name="name" placeholder="이름" required>
-        <input type="email" name="_replyto" placeholder="이메일" required>
-        <textarea name="message" placeholder="문의 내용을 입력하세요" rows="5" required></textarea>
-        <button type="submit">보내기</button>
-      </form>
-    </section>
-  </div>
+  <!-- 푸터 -->
+  <footer>
+    © 2025 우리회사. All Rights Reserved.
+  </footer>
+
+  <!-- 슬라이드 스크립트 -->
+  <script>
+    let index = 0;
+    const slides = document.getElementById('slides');
+    setInterval(() => {
+      index = (index + 1) % 3;
+      slides.style.transform = `translateX(-${index * 100}%)`;
+    }, 4000);
+  </script>
 </body>
 </html>
