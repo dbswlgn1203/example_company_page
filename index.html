@@ -17,8 +17,35 @@ body {
   color: #222;
 }
 
+/* ===== 헤더 ===== */
+header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 70px;
+  background: white;
+  border-bottom: 1px solid #ddd;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 40px;
+  z-index: 100;
+}
+
+.logo {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+nav a {
+  margin-left: 20px;
+  text-decoration: none;
+  color: #222;
+}
+
 /* ===== 슬라이드 ===== */
 .slider {
+  margin-top: 70px;
   position: relative;
   width: 100%;
   height: 400px;
@@ -36,10 +63,11 @@ body {
   background-position: center;
 }
 
-.s1 { background:#444; }
-.s2 { background:#666; }
-.s3 { background:#888; }
+.s1 { background: #444; }
+.s2 { background: #666; }
+.s3 { background: #888; }
 
+/* ===== 인디케이터 ===== */
 .indicators {
   position: absolute;
   bottom: 15px;
@@ -55,13 +83,14 @@ body {
   height: 12px;
   border-radius: 50%;
   background: rgba(255,255,255,0.5);
+  cursor: pointer;
 }
 
 .dot.active {
   background: white;
 }
 
-/* ===== 섹션 공통 ===== */
+/* ===== 섹션 ===== */
 section {
   padding: 80px 20px;
   max-width: 1200px;
@@ -86,7 +115,12 @@ section h2 {
 }
 
 /* ===== 문의 ===== */
+.contact {
+  text-align: center;
+}
+
 .contact form {
+  margin: auto;
   display: grid;
   gap: 15px;
   max-width: 500px;
@@ -102,18 +136,32 @@ section h2 {
   padding: 12px;
   border: none;
   background: #222;
-  color: #fff;
+  color: white;
   cursor: pointer;
 }
 
 /* ===== 반응형 ===== */
-@media (max-width:768px){
-  .slider { height:250px; }
+@media (max-width:768px) {
+  header {
+    padding: 0 20px;
+  }
+  .slider {
+    height: 250px;
+  }
 }
 </style>
 </head>
 
 <body>
+
+<!-- ===== 헤더 ===== -->
+<header>
+  <div class="logo">회사이름</div>
+  <nav>
+    <a href="#about">회사소개</a>
+    <a href="#contact">문의하기</a>
+  </nav>
+</header>
 
 <!-- ===== 슬라이드 ===== -->
 <div class="slider">
@@ -132,8 +180,8 @@ section h2 {
   </div>
 </div>
 
-<!-- ===== 회사 정보 ===== -->
-<section>
+<!-- ===== 회사 소개 ===== -->
+<section id="about">
   <h2>회사 소개</h2>
   <div class="info">
     <div class="info-box">
@@ -152,7 +200,7 @@ section h2 {
 </section>
 
 <!-- ===== 문의 ===== -->
-<section class="contact">
+<section id="contact" class="contact">
   <h2>문의하기</h2>
   <form>
     <input type="text" placeholder="이름">
@@ -160,9 +208,6 @@ section h2 {
     <textarea rows="5" placeholder="문의 내용"></textarea>
     <button type="submit">보내기</button>
   </form>
-  <p style="margin-top:10px;font-size:14px;">
-    ※ 문의는 이메일로 전달됩니다.
-  </p>
 </section>
 
 <script>
@@ -175,37 +220,51 @@ let timer;
 
 slides.style.transform = `translateX(-${index * 100}%)`;
 
-function setDots(i){
-  dots.forEach(d=>d.classList.remove("active"));
+function setDots(i) {
+  dots.forEach(d => d.classList.remove("active"));
   dots[i].classList.add("active");
 }
 
-function moveSlide(){
+function goToSlide(i) {
+  index = i + 1;
+  slides.style.transition = "transform 0.6s ease";
+  slides.style.transform = `translateX(-${index * 100}%)`;
+  setDots(i);
+}
+
+function moveSlide() {
   index++;
-  slides.style.transition="0.6s";
-  slides.style.transform=`translateX(-${index*100}%)`;
-  setDots((index-1)%realCount);
+  slides.style.transition = "transform 0.6s ease";
+  slides.style.transform = `translateX(-${index * 100}%)`;
+  setDots((index - 1) % realCount);
 }
 
-function start(){
+function start() {
   stop();
-  timer=setInterval(moveSlide,4000);
+  timer = setInterval(moveSlide, 4000);
 }
 
-function stop(){
-  if(timer) clearInterval(timer);
+function stop() {
+  if (timer) clearInterval(timer);
 }
 
-slides.addEventListener("transitionend",()=>{
-  if(index===realCount+1){
-    slides.style.transition="none";
-    index=1;
-    slides.style.transform=`translateX(-${index*100}%)`;
+slides.addEventListener("transitionend", () => {
+  if (index === realCount + 1) {
+    slides.style.transition = "none";
+    index = 1;
+    slides.style.transform = `translateX(-${index * 100}%)`;
   }
 });
 
-document.addEventListener("visibilitychange",()=>{
-  if(document.hidden) stop();
+dots.forEach((dot, i) => {
+  dot.addEventListener("click", () => {
+    goToSlide(i);
+    start();
+  });
+});
+
+document.addEventListener("visibilitychange", () => {
+  if (document.hidden) stop();
   else start();
 });
 
