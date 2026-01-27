@@ -14,11 +14,10 @@
 }
 
 body {
-  background: #fff;
   color: #222;
 }
 
-/* ===== 슬라이드 영역 ===== */
+/* ===== 슬라이드 ===== */
 .slider {
   position: relative;
   width: 100%;
@@ -33,17 +32,14 @@ body {
 
 .slide {
   min-width: 100%;
-  height: 100%;
   background-size: cover;
   background-position: center;
 }
 
-/* 임시 색상 (이미지 대신) */
-.s1 { background: #444; }
-.s2 { background: #666; }
-.s3 { background: #888; }
+.s1 { background:#444; }
+.s2 { background:#666; }
+.s3 { background:#888; }
 
-/* ===== 점 인디케이터 ===== */
 .indicators {
   position: absolute;
   bottom: 15px;
@@ -59,18 +55,60 @@ body {
   height: 12px;
   border-radius: 50%;
   background: rgba(255,255,255,0.5);
-  cursor: pointer;
 }
 
 .dot.active {
   background: white;
 }
 
+/* ===== 섹션 공통 ===== */
+section {
+  padding: 80px 20px;
+  max-width: 1200px;
+  margin: auto;
+}
+
+section h2 {
+  font-size: 28px;
+  margin-bottom: 20px;
+}
+
+/* ===== 회사 정보 ===== */
+.info {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px,1fr));
+  gap: 30px;
+}
+
+.info-box {
+  border: 1px solid #ddd;
+  padding: 30px;
+}
+
+/* ===== 문의 ===== */
+.contact form {
+  display: grid;
+  gap: 15px;
+  max-width: 500px;
+}
+
+.contact input,
+.contact textarea {
+  padding: 10px;
+  border: 1px solid #ccc;
+}
+
+.contact button {
+  padding: 12px;
+  border: none;
+  background: #222;
+  color: #fff;
+  cursor: pointer;
+}
+
 /* ===== 반응형 ===== */
-@media (max-width: 768px) {
-  .slider {
-    height: 250px;
-  }
+@media (max-width:768px){
+  .slider { height:250px; }
 }
 </style>
 </head>
@@ -80,19 +118,13 @@ body {
 <!-- ===== 슬라이드 ===== -->
 <div class="slider">
   <div class="slides" id="slides">
-    <!-- clone (마지막) -->
     <div class="slide s3"></div>
-
-    <!-- 실제 슬라이드 -->
     <div class="slide s1"></div>
     <div class="slide s2"></div>
     <div class="slide s3"></div>
-
-    <!-- clone (첫번째) -->
     <div class="slide s1"></div>
   </div>
 
-  <!-- 인디케이터 -->
   <div class="indicators">
     <div class="dot active"></div>
     <div class="dot"></div>
@@ -100,69 +132,84 @@ body {
   </div>
 </div>
 
+<!-- ===== 회사 정보 ===== -->
+<section>
+  <h2>회사 소개</h2>
+  <div class="info">
+    <div class="info-box">
+      <h3>회사이름</h3>
+      <p>정보 1</p>
+    </div>
+    <div class="info-box">
+      <h3>사업 분야</h3>
+      <p>정보 2</p>
+    </div>
+    <div class="info-box">
+      <h3>연락처</h3>
+      <p>전화 / 이메일</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 문의 ===== -->
+<section class="contact">
+  <h2>문의하기</h2>
+  <form>
+    <input type="text" placeholder="이름">
+    <input type="email" placeholder="이메일">
+    <textarea rows="5" placeholder="문의 내용"></textarea>
+    <button type="submit">보내기</button>
+  </form>
+  <p style="margin-top:10px;font-size:14px;">
+    ※ 문의는 이메일로 전달됩니다.
+  </p>
+</section>
+
 <script>
 const slides = document.getElementById("slides");
 const dots = document.querySelectorAll(".dot");
 
 const realCount = 3;
 let index = 1;
-let intervalTime = 4000;
 let timer;
 
 slides.style.transform = `translateX(-${index * 100}%)`;
 
-function setDots(realIndex) {
-  dots.forEach(d => d.classList.remove("active"));
-  dots[realIndex].classList.add("active");
+function setDots(i){
+  dots.forEach(d=>d.classList.remove("active"));
+  dots[i].classList.add("active");
 }
 
-function moveSlide() {
+function moveSlide(){
   index++;
-  slides.style.transition = "transform 0.6s ease";
-  slides.style.transform = `translateX(-${index * 100}%)`;
-  setDots((index - 1) % realCount);
+  slides.style.transition="0.6s";
+  slides.style.transform=`translateX(-${index*100}%)`;
+  setDots((index-1)%realCount);
 }
 
-function startSlide() {
-  stopSlide();
-  timer = setInterval(moveSlide, intervalTime);
+function start(){
+  stop();
+  timer=setInterval(moveSlide,4000);
 }
 
-function stopSlide() {
-  if (timer) clearInterval(timer);
+function stop(){
+  if(timer) clearInterval(timer);
 }
 
-/* 무한 루프 보정 */
-slides.addEventListener("transitionend", () => {
-  if (index === realCount + 1) {
-    slides.style.transition = "none";
-    index = 1;
-    slides.style.transform = `translateX(-${index * 100}%)`;
+slides.addEventListener("transitionend",()=>{
+  if(index===realCount+1){
+    slides.style.transition="none";
+    index=1;
+    slides.style.transform=`translateX(-${index*100}%)`;
   }
 });
 
-/* 탭 이동 대응 (중요) */
-document.addEventListener("visibilitychange", () => {
-  if (document.hidden) {
-    stopSlide();
-  } else {
-    slides.style.transition = "none";
-    slides.style.transform = `translateX(-${index * 100}%)`;
-    startSlide();
-  }
+document.addEventListener("visibilitychange",()=>{
+  if(document.hidden) stop();
+  else start();
 });
 
-/* 점 클릭 */
-dots.forEach((dot, i) => {
-  dot.addEventListener("click", () => {
-    index = i + 1;
-    slides.style.transition = "transform 0.6s ease";
-    slides.style.transform = `translateX(-${index * 100}%)`;
-    setDots(i);
-  });
-});
-
-startSlide();
+start();
 </script>
 
 </body>
