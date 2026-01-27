@@ -78,10 +78,10 @@
       left: 50%;
       top: 50%;
       transform: translate(-50%, -50%);
-      color: white;
-      text-align: center;
       background: rgba(0,0,0,0.45);
+      color: white;
       padding: 30px 40px;
+      text-align: center;
     }
 
     .slide-text h1 {
@@ -93,21 +93,22 @@
       font-size: 18px;
     }
 
-    /* dots */
+    /* ===== DOTS ===== */
     .dots {
       position: absolute;
-      bottom: 20px;
+      bottom: 25px;
       left: 50%;
       transform: translateX(-50%);
       display: flex;
-      gap: 10px;
+      gap: 12px;
+      z-index: 10;
     }
 
     .dot {
       width: 10px;
       height: 10px;
       border-radius: 50%;
-      background: rgba(255,255,255,0.5);
+      background: rgba(255,255,255,0.4);
     }
 
     .dot.active {
@@ -152,15 +153,13 @@
     .contact textarea {
       padding: 12px;
       border: 1px solid #ccc;
-      font-size: 14px;
     }
 
     .contact button {
       padding: 15px;
-      border: none;
       background: #111;
       color: white;
-      font-size: 15px;
+      border: none;
       cursor: pointer;
     }
 
@@ -169,7 +168,6 @@
       color: #aaa;
       padding: 40px;
       text-align: center;
-      font-size: 14px;
     }
 
     /* ===== RESPONSIVE ===== */
@@ -209,37 +207,40 @@
     <!-- clone last -->
     <div class="slide" style="background-image:url('https://images.unsplash.com/photo-1581092334651-ddf26d9f8f85')">
       <div class="slide-text">
-        <h1>슬라이드 문구 3</h1>
-        <p>설명 문구 영역</p>
+        <h1>슬라이드 3</h1>
+        <p>설명 문구</p>
       </div>
     </div>
 
+    <!-- slide 1 -->
     <div class="slide" style="background-image:url('https://images.unsplash.com/photo-1581091870627-3c0a6a3d4a4c')">
       <div class="slide-text">
-        <h1>슬라이드 문구 1</h1>
-        <p>설명 문구 영역</p>
+        <h1>슬라이드 1</h1>
+        <p>설명 문구</p>
       </div>
     </div>
 
+    <!-- slide 2 -->
     <div class="slide" style="background-image:url('https://images.unsplash.com/photo-1581091215367-59ab6f58c8c5')">
       <div class="slide-text">
-        <h1>슬라이드 문구 2</h1>
-        <p>설명 문구 영역</p>
+        <h1>슬라이드 2</h1>
+        <p>설명 문구</p>
       </div>
     </div>
 
+    <!-- slide 3 -->
     <div class="slide" style="background-image:url('https://images.unsplash.com/photo-1581092334651-ddf26d9f8f85')">
       <div class="slide-text">
-        <h1>슬라이드 문구 3</h1>
-        <p>설명 문구 영역</p>
+        <h1>슬라이드 3</h1>
+        <p>설명 문구</p>
       </div>
     </div>
 
     <!-- clone first -->
     <div class="slide" style="background-image:url('https://images.unsplash.com/photo-1581091870627-3c0a6a3d4a4c')">
       <div class="slide-text">
-        <h1>슬라이드 문구 1</h1>
-        <p>설명 문구 영역</p>
+        <h1>슬라이드 1</h1>
+        <p>설명 문구</p>
       </div>
     </div>
   </div>
@@ -261,18 +262,9 @@
 <section id="business">
   <h2>정보 2</h2>
   <div class="business">
-    <div class="card">
-      <h3>항목 1</h3>
-      <p>내용 자리</p>
-    </div>
-    <div class="card">
-      <h3>항목 2</h3>
-      <p>내용 자리</p>
-    </div>
-    <div class="card">
-      <h3>항목 3</h3>
-      <p>내용 자리</p>
-    </div>
+    <div class="card"><h3>항목 1</h3><p>내용</p></div>
+    <div class="card"><h3>항목 2</h3><p>내용</p></div>
+    <div class="card"><h3>항목 3</h3><p>내용</p></div>
   </div>
 </section>
 
@@ -293,46 +285,33 @@
 <script>
   const slides = document.getElementById("slides");
   const dots = document.querySelectorAll(".dot");
+  const slideCount = 3;
 
-  const realSlideCount = 3;
   let index = 1;
-  let interval = 4000;
-
   slides.style.transform = `translateX(-${index * 100}%)`;
 
-  function setDots(realIndex) {
+  function updateDots(i) {
     dots.forEach(dot => dot.classList.remove("active"));
-    dots[realIndex].classList.add("active");
+    dots[i].classList.add("active");
   }
 
-  setDots(0);
+  updateDots(0);
 
-  function moveSlide() {
+  setInterval(() => {
     index++;
     slides.style.transition = "transform 0.6s ease";
     slides.style.transform = `translateX(-${index * 100}%)`;
-
-    let realIndex = (index - 1) % realSlideCount;
-    setDots(realIndex);
-  }
-
-  setInterval(moveSlide, interval);
+    updateDots((index - 1) % slideCount);
+  }, 4000);
 
   slides.addEventListener("transitionend", () => {
-    if (index === realSlideCount + 1) {
+    if (index === slideCount + 1) {
       slides.style.transition = "none";
       index = 1;
       slides.style.transform = `translateX(-${index * 100}%)`;
     }
-
-    if (index === 0) {
-      slides.style.transition = "none";
-      index = realSlideCount;
-      slides.style.transform = `translateX(-${index * 100}%)`;
-    }
   });
 </script>
-
 
 </body>
 </html>
