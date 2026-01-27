@@ -1,316 +1,168 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>회사이름</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>회사이름</title>
 
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: "Pretendard", "Noto Sans KR", sans-serif;
-    }
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
 
-    body {
-      color: #222;
-      line-height: 1.6;
-    }
+body {
+  background: #fff;
+  color: #222;
+}
 
-    a {
-      text-decoration: none;
-      color: inherit;
-    }
+/* ===== 슬라이드 영역 ===== */
+.slider {
+  position: relative;
+  width: 100%;
+  height: 400px;
+  overflow: hidden;
+}
 
-    /* ===== HEADER ===== */
-    header {
-      position: fixed;
-      top: 0;
-      width: 100%;
-      background: #fff;
-      border-bottom: 1px solid #eee;
-      z-index: 100;
-    }
+.slides {
+  display: flex;
+  height: 100%;
+}
 
-    .nav {
-      max-width: 1200px;
-      margin: auto;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 15px 20px;
-    }
+.slide {
+  min-width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+}
 
-    .logo {
-      font-size: 20px;
-      font-weight: 700;
-    }
+/* 임시 색상 (이미지 대신) */
+.s1 { background: #444; }
+.s2 { background: #666; }
+.s3 { background: #888; }
 
-    .menu a {
-      margin-left: 20px;
-      font-size: 15px;
-    }
+/* ===== 점 인디케이터 ===== */
+.indicators {
+  position: absolute;
+  bottom: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 10px;
+  z-index: 10;
+}
 
-    /* ===== SLIDER ===== */
-    .slider {
-      margin-top: 60px;
-      position: relative;
-      height: 80vh;
-      overflow: hidden;
-    }
+.dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.5);
+  cursor: pointer;
+}
 
-    .slides {
-      display: flex;
-      height: 100%;
-    }
+.dot.active {
+  background: white;
+}
 
-    .slide {
-      min-width: 100%;
-      height: 100%;
-      background-size: cover;
-      background-position: center;
-      position: relative;
-    }
-
-    .slide-text {
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%, -50%);
-      background: rgba(0,0,0,0.45);
-      color: white;
-      padding: 30px 40px;
-      text-align: center;
-    }
-
-    .slide-text h1 {
-      font-size: 42px;
-      margin-bottom: 10px;
-    }
-
-    .slide-text p {
-      font-size: 18px;
-    }
-
-    /* ===== DOTS ===== */
-    .dots {
-      position: absolute;
-      bottom: 25px;
-      left: 50%;
-      transform: translateX(-50%);
-      display: flex;
-      gap: 12px;
-      z-index: 10;
-    }
-
-    .dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.4);
-    }
-
-    .dot.active {
-      background: white;
-    }
-
-    /* ===== SECTION ===== */
-    section {
-      max-width: 1200px;
-      margin: auto;
-      padding: 100px 20px;
-    }
-
-    section h2 {
-      text-align: center;
-      font-size: 32px;
-      margin-bottom: 40px;
-    }
-
-    .business {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 30px;
-    }
-
-    .card {
-      border: 1px solid #eee;
-      padding: 30px;
-      text-align: center;
-    }
-
-    /* ===== CONTACT ===== */
-    .contact form {
-      max-width: 600px;
-      margin: auto;
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-    }
-
-    .contact input,
-    .contact textarea {
-      padding: 12px;
-      border: 1px solid #ccc;
-    }
-
-    .contact button {
-      padding: 15px;
-      background: #111;
-      color: white;
-      border: none;
-      cursor: pointer;
-    }
-
-    footer {
-      background: #111;
-      color: #aaa;
-      padding: 40px;
-      text-align: center;
-    }
-
-    /* ===== RESPONSIVE ===== */
-    @media (max-width: 768px) {
-      .slide-text h1 {
-        font-size: 26px;
-      }
-
-      .business {
-        grid-template-columns: 1fr;
-      }
-
-      .menu {
-        display: none;
-      }
-    }
-  </style>
+/* ===== 반응형 ===== */
+@media (max-width: 768px) {
+  .slider {
+    height: 250px;
+  }
+}
+</style>
 </head>
 
 <body>
 
-<header>
-  <div class="nav">
-    <div class="logo">회사이름</div>
-    <div class="menu">
-      <a href="#about">정보 1</a>
-      <a href="#business">정보 2</a>
-      <a href="#contact">문의</a>
-    </div>
-  </div>
-</header>
-
-<!-- SLIDER -->
+<!-- ===== 슬라이드 ===== -->
 <div class="slider">
   <div class="slides" id="slides">
+    <!-- clone (마지막) -->
+    <div class="slide s3"></div>
 
-    <!-- clone last -->
-    <div class="slide" style="background-image:url('https://images.unsplash.com/photo-1581092334651-ddf26d9f8f85')">
-      <div class="slide-text">
-        <h1>슬라이드 3</h1>
-        <p>설명 문구</p>
-      </div>
-    </div>
+    <!-- 실제 슬라이드 -->
+    <div class="slide s1"></div>
+    <div class="slide s2"></div>
+    <div class="slide s3"></div>
 
-    <!-- slide 1 -->
-    <div class="slide" style="background-image:url('https://images.unsplash.com/photo-1581091870627-3c0a6a3d4a4c')">
-      <div class="slide-text">
-        <h1>슬라이드 1</h1>
-        <p>설명 문구</p>
-      </div>
-    </div>
-
-    <!-- slide 2 -->
-    <div class="slide" style="background-image:url('https://images.unsplash.com/photo-1581091215367-59ab6f58c8c5')">
-      <div class="slide-text">
-        <h1>슬라이드 2</h1>
-        <p>설명 문구</p>
-      </div>
-    </div>
-
-    <!-- slide 3 -->
-    <div class="slide" style="background-image:url('https://images.unsplash.com/photo-1581092334651-ddf26d9f8f85')">
-      <div class="slide-text">
-        <h1>슬라이드 3</h1>
-        <p>설명 문구</p>
-      </div>
-    </div>
-
-    <!-- clone first -->
-    <div class="slide" style="background-image:url('https://images.unsplash.com/photo-1581091870627-3c0a6a3d4a4c')">
-      <div class="slide-text">
-        <h1>슬라이드 1</h1>
-        <p>설명 문구</p>
-      </div>
-    </div>
+    <!-- clone (첫번째) -->
+    <div class="slide s1"></div>
   </div>
 
-  <div class="dots">
-    <span class="dot active"></span>
-    <span class="dot"></span>
-    <span class="dot"></span>
+  <!-- 인디케이터 -->
+  <div class="indicators">
+    <div class="dot active"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
   </div>
 </div>
 
-<section id="about">
-  <h2>정보 1</h2>
-  <p style="text-align:center; max-width:800px; margin:auto;">
-    회사 정보가 들어갈 자리입니다.
-  </p>
-</section>
-
-<section id="business">
-  <h2>정보 2</h2>
-  <div class="business">
-    <div class="card"><h3>항목 1</h3><p>내용</p></div>
-    <div class="card"><h3>항목 2</h3><p>내용</p></div>
-    <div class="card"><h3>항목 3</h3><p>내용</p></div>
-  </div>
-</section>
-
-<section id="contact" class="contact">
-  <h2>문의</h2>
-  <form action="https://formspree.io/f/여기에ID" method="POST">
-    <input type="text" name="name" placeholder="이름" required>
-    <input type="email" name="email" placeholder="이메일" required>
-    <textarea name="message" rows="5" placeholder="문의내용" required></textarea>
-    <button type="submit">보내기</button>
-  </form>
-</section>
-
-<footer>
-  © 회사이름. All Rights Reserved.
-</footer>
-
 <script>
-  const slides = document.getElementById("slides");
-  const dots = document.querySelectorAll(".dot");
-  const slideCount = 3;
+const slides = document.getElementById("slides");
+const dots = document.querySelectorAll(".dot");
 
-  let index = 1;
+const realCount = 3;
+let index = 1;
+let intervalTime = 4000;
+let timer;
+
+slides.style.transform = `translateX(-${index * 100}%)`;
+
+function setDots(realIndex) {
+  dots.forEach(d => d.classList.remove("active"));
+  dots[realIndex].classList.add("active");
+}
+
+function moveSlide() {
+  index++;
+  slides.style.transition = "transform 0.6s ease";
   slides.style.transform = `translateX(-${index * 100}%)`;
+  setDots((index - 1) % realCount);
+}
 
-  function updateDots(i) {
-    dots.forEach(dot => dot.classList.remove("active"));
-    dots[i].classList.add("active");
+function startSlide() {
+  stopSlide();
+  timer = setInterval(moveSlide, intervalTime);
+}
+
+function stopSlide() {
+  if (timer) clearInterval(timer);
+}
+
+/* 무한 루프 보정 */
+slides.addEventListener("transitionend", () => {
+  if (index === realCount + 1) {
+    slides.style.transition = "none";
+    index = 1;
+    slides.style.transform = `translateX(-${index * 100}%)`;
   }
+});
 
-  updateDots(0);
+/* 탭 이동 대응 (중요) */
+document.addEventListener("visibilitychange", () => {
+  if (document.hidden) {
+    stopSlide();
+  } else {
+    slides.style.transition = "none";
+    slides.style.transform = `translateX(-${index * 100}%)`;
+    startSlide();
+  }
+});
 
-  setInterval(() => {
-    index++;
+/* 점 클릭 */
+dots.forEach((dot, i) => {
+  dot.addEventListener("click", () => {
+    index = i + 1;
     slides.style.transition = "transform 0.6s ease";
     slides.style.transform = `translateX(-${index * 100}%)`;
-    updateDots((index - 1) % slideCount);
-  }, 4000);
-
-  slides.addEventListener("transitionend", () => {
-    if (index === slideCount + 1) {
-      slides.style.transition = "none";
-      index = 1;
-      slides.style.transform = `translateX(-${index * 100}%)`;
-    }
+    setDots(i);
   });
+});
+
+startSlide();
 </script>
 
 </body>
