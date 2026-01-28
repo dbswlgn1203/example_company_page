@@ -13,6 +13,10 @@
   font-family: Arial, sans-serif;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   color: #222;
 }
@@ -38,9 +42,14 @@ header {
 }
 
 nav a {
-  margin-left: 20px;
+  margin-left: 30px;
   text-decoration: none;
   color: #222;
+  font-size: 15px;
+}
+
+nav a:hover {
+  text-decoration: underline;
 }
 
 /* ===== 슬라이드 ===== */
@@ -92,47 +101,47 @@ nav a {
 
 /* ===== 섹션 ===== */
 section {
-  padding: 80px 20px;
+  padding: 100px 20px;
   max-width: 1200px;
   margin: auto;
 }
 
 section h2 {
   font-size: 28px;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
 }
 
-/* ===== 회사 정보 ===== */
-.info {
+/* ===== Company / Product / Technical ===== */
+.grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px,1fr));
   gap: 30px;
 }
 
-.info-box {
+.box {
   border: 1px solid #ddd;
   padding: 30px;
 }
 
-/* ===== 문의 ===== */
-.contact {
+/* ===== Inquiry ===== */
+.inquiry {
   text-align: center;
 }
 
-.contact form {
+.inquiry form {
   margin: auto;
   display: grid;
   gap: 15px;
   max-width: 500px;
 }
 
-.contact input,
-.contact textarea {
+.inquiry input,
+.inquiry textarea {
   padding: 10px;
   border: 1px solid #ccc;
 }
 
-.contact button {
+.inquiry button {
   padding: 12px;
   border: none;
   background: #222;
@@ -144,6 +153,9 @@ section h2 {
 @media (max-width:768px) {
   header {
     padding: 0 20px;
+  }
+  nav a {
+    margin-left: 15px;
   }
   .slider {
     height: 250px;
@@ -158,8 +170,10 @@ section h2 {
 <header>
   <div class="logo">회사이름</div>
   <nav>
-    <a href="#about">회사소개</a>
-    <a href="#contact">문의하기</a>
+    <a href="#company">Company</a>
+    <a href="#product">Product</a>
+    <a href="#technical">Technical</a>
+    <a href="#inquiry">Inquiry</a>
   </nav>
 </header>
 
@@ -180,33 +194,48 @@ section h2 {
   </div>
 </div>
 
-<!-- ===== 회사 소개 ===== -->
-<section id="about">
-  <h2>회사 소개</h2>
-  <div class="info">
-    <div class="info-box">
+<!-- ===== Company ===== -->
+<section id="company">
+  <h2>Company</h2>
+  <div class="grid">
+    <div class="box">
       <h3>회사이름</h3>
-      <p>정보 1</p>
+      <p>회사 정보 1</p>
     </div>
-    <div class="info-box">
-      <h3>사업 분야</h3>
-      <p>정보 2</p>
-    </div>
-    <div class="info-box">
-      <h3>연락처</h3>
-      <p>전화 / 이메일</p>
+    <div class="box">
+      <h3>Vision</h3>
+      <p>회사 정보 2</p>
     </div>
   </div>
 </section>
 
-<!-- ===== 문의 ===== -->
-<section id="contact" class="contact">
-  <h2>문의하기</h2>
+<!-- ===== Product ===== -->
+<section id="product">
+  <h2>Product</h2>
+  <div class="grid">
+    <div class="box">제품 정보 1</div>
+    <div class="box">제품 정보 2</div>
+    <div class="box">제품 정보 3</div>
+  </div>
+</section>
+
+<!-- ===== Technical ===== -->
+<section id="technical">
+  <h2>Technical</h2>
+  <div class="grid">
+    <div class="box">기술 정보 1</div>
+    <div class="box">기술 정보 2</div>
+  </div>
+</section>
+
+<!-- ===== Inquiry ===== -->
+<section id="inquiry" class="inquiry">
+  <h2>Inquiry</h2>
   <form>
-    <input type="text" placeholder="이름">
-    <input type="email" placeholder="이메일">
-    <textarea rows="5" placeholder="문의 내용"></textarea>
-    <button type="submit">보내기</button>
+    <input type="text" placeholder="Name">
+    <input type="email" placeholder="Email">
+    <textarea rows="5" placeholder="Message"></textarea>
+    <button type="submit">Send</button>
   </form>
 </section>
 
