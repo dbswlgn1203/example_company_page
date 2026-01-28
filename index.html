@@ -6,299 +6,41 @@
 <title>회사이름</title>
 
 <style>
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: Arial, sans-serif;
-}
-
-html {
-  scroll-behavior: smooth;
-}
-
-body {
-  color: #222;
-}
-
-/* ===== 헤더 ===== */
+body { margin:0; font-family:Arial; }
 header {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  height: 70px;
-  background: white;
-  border-bottom: 1px solid #ddd;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 40px;
-  z-index: 100;
+  position:fixed; top:0; width:100%; height:70px;
+  display:flex; justify-content:space-between;
+  align-items:center; padding:0 40px;
+  border-bottom:1px solid #ddd; background:white;
 }
-
-.logo {
-  font-size: 20px;
-  font-weight: bold;
-}
-
-nav a {
-  margin-left: 30px;
-  text-decoration: none;
-  color: #222;
-  font-size: 15px;
-}
-
-nav a:hover {
-  text-decoration: underline;
-}
-
-/* ===== 슬라이드 ===== */
+nav a { margin-left:30px; text-decoration:none; color:#222; }
 .slider {
-  margin-top: 70px;
-  position: relative;
-  width: 100%;
-  height: 400px;
-  overflow: hidden;
+  margin-top:70px; height:400px;
+  display:flex; overflow:hidden;
 }
-
-.slides {
-  display: flex;
-  height: 100%;
-}
-
 .slide {
-  min-width: 100%;
-  background-size: cover;
-  background-position: center;
-}
-
-.s1 { background: #444; }
-.s2 { background: #666; }
-.s3 { background: #888; }
-
-/* ===== 인디케이터 ===== */
-.indicators {
-  position: absolute;
-  bottom: 15px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  gap: 10px;
-  z-index: 10;
-}
-
-.dot {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  background: rgba(255,255,255,0.5);
-  cursor: pointer;
-}
-
-.dot.active {
-  background: white;
-}
-
-/* ===== 섹션 ===== */
-section {
-  padding: 100px 20px;
-  max-width: 1200px;
-  margin: auto;
-}
-
-section h2 {
-  font-size: 28px;
-  margin-bottom: 30px;
-}
-
-/* ===== Company / Product / Technical ===== */
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px,1fr));
-  gap: 30px;
-}
-
-.box {
-  border: 1px solid #ddd;
-  padding: 30px;
-}
-
-/* ===== Inquiry ===== */
-.inquiry {
-  text-align: center;
-}
-
-.inquiry form {
-  margin: auto;
-  display: grid;
-  gap: 15px;
-  max-width: 500px;
-}
-
-.inquiry input,
-.inquiry textarea {
-  padding: 10px;
-  border: 1px solid #ccc;
-}
-
-.inquiry button {
-  padding: 12px;
-  border: none;
-  background: #222;
-  color: white;
-  cursor: pointer;
-}
-
-/* ===== 반응형 ===== */
-@media (max-width:768px) {
-  header {
-    padding: 0 20px;
-  }
-  nav a {
-    margin-left: 15px;
-  }
-  .slider {
-    height: 250px;
-  }
+  min-width:100%; background:#555;
 }
 </style>
 </head>
 
 <body>
 
-<!-- ===== 헤더 ===== -->
 <header>
   <div class="logo">회사이름</div>
   <nav>
-    <a href="#company">Company</a>
-    <a href="#product">Product</a>
-    <a href="#technical">Technical</a>
-    <a href="#inquiry">Inquiry</a>
+    <a href="company.html">Company</a>
+    <a href="product.html">Product</a>
+    <a href="technical.html">Technical</a>
+    <a href="inquiry.html">Inquiry</a>
   </nav>
 </header>
 
-<!-- ===== 슬라이드 ===== -->
 <div class="slider">
-  <div class="slides" id="slides">
-    <div class="slide s3"></div>
-    <div class="slide s1"></div>
-    <div class="slide s2"></div>
-    <div class="slide s3"></div>
-    <div class="slide s1"></div>
-  </div>
-
-  <div class="indicators">
-    <div class="dot active"></div>
-    <div class="dot"></div>
-    <div class="dot"></div>
-  </div>
+  <div class="slide"></div>
+  <div class="slide"></div>
+  <div class="slide"></div>
 </div>
-
-<!-- ===== Company ===== -->
-<section id="company">
-  <h2>Company</h2>
-  <div class="grid">
-    <div class="box">
-      <h3>회사이름</h3>
-      <p>회사 정보 1</p>
-    </div>
-    <div class="box">
-      <h3>Vision</h3>
-      <p>회사 정보 2</p>
-    </div>
-  </div>
-</section>
-
-<!-- ===== Product ===== -->
-<section id="product">
-  <h2>Product</h2>
-  <div class="grid">
-    <div class="box">제품 정보 1</div>
-    <div class="box">제품 정보 2</div>
-    <div class="box">제품 정보 3</div>
-  </div>
-</section>
-
-<!-- ===== Technical ===== -->
-<section id="technical">
-  <h2>Technical</h2>
-  <div class="grid">
-    <div class="box">기술 정보 1</div>
-    <div class="box">기술 정보 2</div>
-  </div>
-</section>
-
-<!-- ===== Inquiry ===== -->
-<section id="inquiry" class="inquiry">
-  <h2>Inquiry</h2>
-  <form>
-    <input type="text" placeholder="Name">
-    <input type="email" placeholder="Email">
-    <textarea rows="5" placeholder="Message"></textarea>
-    <button type="submit">Send</button>
-  </form>
-</section>
-
-<script>
-const slides = document.getElementById("slides");
-const dots = document.querySelectorAll(".dot");
-
-const realCount = 3;
-let index = 1;
-let timer;
-
-slides.style.transform = `translateX(-${index * 100}%)`;
-
-function setDots(i) {
-  dots.forEach(d => d.classList.remove("active"));
-  dots[i].classList.add("active");
-}
-
-function goToSlide(i) {
-  index = i + 1;
-  slides.style.transition = "transform 0.6s ease";
-  slides.style.transform = `translateX(-${index * 100}%)`;
-  setDots(i);
-}
-
-function moveSlide() {
-  index++;
-  slides.style.transition = "transform 0.6s ease";
-  slides.style.transform = `translateX(-${index * 100}%)`;
-  setDots((index - 1) % realCount);
-}
-
-function start() {
-  stop();
-  timer = setInterval(moveSlide, 4000);
-}
-
-function stop() {
-  if (timer) clearInterval(timer);
-}
-
-slides.addEventListener("transitionend", () => {
-  if (index === realCount + 1) {
-    slides.style.transition = "none";
-    index = 1;
-    slides.style.transform = `translateX(-${index * 100}%)`;
-  }
-});
-
-dots.forEach((dot, i) => {
-  dot.addEventListener("click", () => {
-    goToSlide(i);
-    start();
-  });
-});
-
-document.addEventListener("visibilitychange", () => {
-  if (document.hidden) stop();
-  else start();
-});
-
-start();
-</script>
 
 </body>
 </html>
